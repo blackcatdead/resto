@@ -58,13 +58,16 @@ class m_service extends CI_Model {
 		//$this->db->where("DATE_FORMAT(datetime,'%Y-%m-%d') = "."'".$datetime."'",NULL,FALSE);
 		//$this-> db ->where('id_user_fk', $par['id_user_fk']);
 		//$data = $this-> db ->get_where('ordera', $par, null, null);
+		$this-> db ->where('status','0');
+		$this-> db ->order_by('id_order','desc');
 		$data = $this-> db ->get('order');
+
 		return $data -> result_array();
 	}
 
 	function detail_order($par)
 	{
-
+		$this->db->select('detail_order.id_detail_order, id_menu_fk, id_order_fk, quantity, catatan, subtotal, menu.nama, detail_order.status' );
 		$this->db->where('id_order_fk', $par['id_order_fk']);
 		$this->db->join('menu', 'detail_order.id_menu_fk = menu.id_menu');
 		$data = $this-> db ->get('detail_order');
@@ -106,7 +109,7 @@ class m_service extends CI_Model {
 	function ubahOrder($par)
 	{
 		$this->db->where('id_order', $par['id_order']);
-		$data = $this->db->update('order', $data);
+		$data = $this->db->update('order', $par);
 		return $data;
 	}
 
@@ -121,9 +124,17 @@ class m_service extends CI_Model {
 	
 	function ubahDetailOrder($par)
 	{
-		$this->db->where('id_order', $par['id_detail_order']);
-		$data = $this->db->update('detail_order', $data);
+		$id_detail_order=$par['id_detail_order'];
+		unset($par['id_detail_order']);
+		$this->db->where('id_detail_order', $id_detail_order);
+		$data = $this->db->update('detail_order', $par);
 		return $data;
+	}
+
+	function menu($par)
+	{
+		$data = $this-> db ->get_where('menu', $par, 1, 0);
+		return $data -> result_array();
 	}
 
 	function makanan()

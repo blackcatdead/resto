@@ -71,6 +71,15 @@ class ServiceController extends CI_Controller {
 		echo $response;
 	}
 
+
+	
+	public function menu()
+	{
+		$data=$this->input->get();
+		$res = $this->m_service->menu($data);
+		$response = json_encode($res);
+		echo $response;
+	}
 	public function makanan()
 	{
 		
