@@ -39,6 +39,26 @@ class ServiceController extends CI_Controller {
 		echo 'logout';
 	}
 
+	public function belum_dikonfirm()
+	{
+		$res = $this->m_service->belum_dikonfirm();
+
+		$id= ((isset($res[0]['id_order'])==true) ? ($res[0]['id_order']) : "0");
+
+		//$response = json_encode($res);
+		//echo $response;
+		echo $id;
+	}
+
+	public function konfirmasi()
+	{
+		$data=$this->input->get();
+		$res = $this->m_service->konfirmasi($data);
+
+		$response = json_encode($res);
+		echo $response;
+	}
+
 	public function dataUser()
 	{
 		$data=$this->input->get();
@@ -94,6 +114,8 @@ class ServiceController extends CI_Controller {
 		$response = json_encode($res);
 		echo $response;
 	}
+
+
 
 	public function tambahOrder()
 	{

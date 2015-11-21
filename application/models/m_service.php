@@ -31,6 +31,21 @@ class m_service extends CI_Model {
 		return $data -> result_array();
 	}
 
+	function belum_dikonfirm()
+	{
+		$this-> db ->where('status','2');
+		$this-> db ->order_by('id_order','desc');
+		$data = $this-> db ->get('order');
+		return $data -> result_array();
+	}
+
+	function konfirmasi($par)
+	{
+		$this->db->where('id_order', $par['id_order']);
+		$data = $this->db->update('order', $par);
+		return $data;
+	}
+
 
 	function orderHariIni($par)
 	{
@@ -81,6 +96,8 @@ class m_service extends CI_Model {
 		$insert_id = $this->db->insert_id();
 		return $insert_id;
 	}
+
+
 
 	function hapusOrder($par)
 	{
