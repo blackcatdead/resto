@@ -41,7 +41,8 @@ class ServiceController extends CI_Controller {
 
 	public function belum_dikonfirm()
 	{
-		$res = $this->m_service->belum_dikonfirm();
+		$data=$this->input->get();
+		$res = $this->m_service->belum_dikonfirm($data);
 
 		$id= ((isset($res[0]['id_order'])==true) ? ($res[0]['id_order']) : "0");
 

@@ -31,11 +31,11 @@ class m_service extends CI_Model {
 		return $data -> result_array();
 	}
 
-	function belum_dikonfirm()
+	function belum_dikonfirm($par)
 	{
 		$this-> db ->where('status','2');
 		$this-> db ->order_by('id_order','desc');
-		$data = $this-> db ->get('order');
+		$data = $this-> db ->get_where('order', $par, 1, 0);
 		return $data -> result_array();
 	}
 
